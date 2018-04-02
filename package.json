@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fieldin/units_converter.git"
+    "url": "git+https://github.com/fieldin/units-converter.git"
   },
   "keywords": [
     "units",
     "converter"
   ],
   "author": "m144",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fieldin/units_converter/issues"
+    "url": "https://github.com/fieldin/units-converter/issues"
   },
-  "homepage": "https://github.com/fieldin/units_converter#readme"
+  "homepage": "https://github.com/fieldin/units-converter#readme"
 }
