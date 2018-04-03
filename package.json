@@ -19,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/fieldin/units-converter/issues"
   },
-  "homepage": "https://github.com/fieldin/units-converter#readme"
+  "homepage": "https://github.com/fieldin/units-converter#readme",
+  "dependencies": {}
 }
