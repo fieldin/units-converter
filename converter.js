@@ -82,7 +82,7 @@ var Converter = (function() {
      */
     c.to = function(unit,decimals,round) {
         if(round === undefined) {
-            round = true;
+            round = false;
         }
 
         // check if 'from' value is set
@@ -163,7 +163,7 @@ var Converter = (function() {
      */
     pr.toSimple = function(unit,decimals,round) {
         if(round === undefined) {
-            round = true;
+            round = false;
         }
 
         // check if 'from' value is set
