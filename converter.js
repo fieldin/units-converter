@@ -52,8 +52,8 @@ var Converter = (function() {
                     printError('Unit Does Not Exist: ' + denominator);
                 }
 
-                c.from(value*numerator_multiplier,numerator,'numerator');
-                c.from(1*denominator_multiplier,denominator,'denominator');
+                c.from(value*numerator_multiplier,numerator,'Numerator');
+                c.from(1*denominator_multiplier,denominator,'Denominator');
             } else {
                 //regular unit, check that we have it
                 if(pr.units[unit]) {
