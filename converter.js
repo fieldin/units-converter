@@ -135,15 +135,13 @@ var Converter = (function() {
 
                 if(decimals || decimals === 0) {
                     var dec = Math.pow(10,decimals);
-                } else {
-                    var dec = 10;
-                }
-                if(round) {
-                    //round to the specified number of decimals
-                    result = Math.round(result * dec) / dec;
-                } else {
-                    //truncate to the nearest number of decimals
-                    result = Math.floor(result * dec) / dec;
+                    if(round) {
+                        //round to the specified number of decimals
+                        result = Math.round(result * dec) / dec;
+                    } else {
+                        //truncate to the nearest number of decimals
+                        result = Math.floor(result * dec) / dec;
+                    }
                 }
 
                 return result;
@@ -200,15 +198,13 @@ var Converter = (function() {
 
                 if(decimals || decimals === 0) {
                     var dec = Math.pow(10,decimals);
-                } else {
-                    var dec = 10;
-                }
-                if(round) {
-                    //round to the specified number of decimals
-                    result = Math.round(result * dec) / dec;
-                } else {
-                    //truncate to the nearest number of decimals
-                    result = Math.floor(result * dec) / dec;
+                    if(round) {
+                        //round to the specified number of decimals
+                        result = Math.round(result * dec) / dec;
+                    } else {
+                        //truncate to the nearest number of decimals
+                        result = Math.floor(result * dec) / dec;
+                    }
                 }
 
                 return result;
