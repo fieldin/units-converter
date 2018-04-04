@@ -13,6 +13,12 @@ var Converter = (function() {
         units:{}
     };
 
+    c.convert = function(value,from_unit,to_unit,decimals,round) {
+        var converter = this;
+        converter.from(value,from_unit);
+        return converter.to(to_unit,decimals,round);
+    };
+
     /**
      * Set from conversion value / unit
      *
