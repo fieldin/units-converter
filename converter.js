@@ -13,7 +13,7 @@ var Converter = (function() {
         units:{}
     };
 
-    c.convert = function(value,from_unit,to_unit,decimals,round) {
+    c.convert = function(value, from_unit, to_unit, decimals, round) {
         var converter = this;
         converter.from(value,from_unit);
         return converter.to(to_unit,decimals,round);
@@ -26,7 +26,7 @@ var Converter = (function() {
      * @param    {string} unit (optional) - the unit symbol for the start value
      * @return   none
      */
-    c.from = function(value,unit,type) {
+    c.from = function(value, unit, type) {
         if(!value && value !== 0) {
             return printError('no value given');
         }
@@ -58,8 +58,8 @@ var Converter = (function() {
                     printError('Unit Does Not Exist: ' + denominator);
                 }
 
-                c.from(value*numerator_multiplier,numerator,'Numerator');
-                c.from(1*denominator_multiplier,denominator,'Denominator');
+                c.from(value*numerator_multiplier, numerator, 'Numerator');
+                c.from(1*denominator_multiplier, denominator, 'Denominator');
             } else {
                 //regular unit, check that we have it
                 if(pr.units[unit]) {
@@ -69,7 +69,7 @@ var Converter = (function() {
                         pr[type.toLowerCase() + 'Value'] = pr.convertToBase(value,_unit);
                     } else {
                         pr.baseUnit = _unit.base;
-                        pr.value = pr.convertToBase(value,_unit);
+                        pr.value = pr.convertToBase(value, _unit);
                     }
                 } else {
                     return printError('Unit Does Not Exist: ' + unit);
@@ -83,10 +83,10 @@ var Converter = (function() {
      *
      * @param    {string[]} unit -  the unit symbol (or array of symblos) for the conversion unit
      * @param    {int} decimals (optional, default-null) - the decimal precision of the conversion result
-     * @param    {boolean} round (optional, default-true) - round or floor the conversion result
+     * @param    {boolean} round (optional, default-false) - round or floor the conversion result
      * @returns   {double}
      */
-    c.to = function(unit,decimals,round) {
+    c.to = function(unit, decimals, round) {
         if(round === undefined) {
             round = false;
         }
@@ -101,7 +101,7 @@ var Converter = (function() {
         }
         
         if(typeof unit !== 'string') {
-            return pr.toMany(unit,decimals,round);
+            return pr.toMany(unit, decimals, round);
         } else {
             if(unit.indexOf('/') !== -1) {
                 //this is a relation
@@ -119,7 +119,7 @@ var Converter = (function() {
                 }
                 pr.value = pr.numeratorValue;
                 pr.baseUnit = pr.baseUnitNumerator;
-                var numerator_res = pr.toSimple(numerator,decimals,round) * numerator_multiplier;
+                var numerator_res = pr.toSimple(numerator, decimals, round) * numerator_multiplier;
 
                 var denominator_multiplier = 1;
                 matches = denominator.match(/(\d+)?(\D+.*)/);
@@ -131,7 +131,7 @@ var Converter = (function() {
                 }
                 pr.value = pr.denominatorValue;
                 pr.baseUnit = pr.baseUnitDenominator;
-                var denominator_res = pr.toSimple(denominator,decimals,round) / denominator_multiplier;
+                var denominator_res = pr.toSimple(denominator, decimals, round) / denominator_multiplier;
 
                 if(denominator_res <= 0){
                     denominator_res = 1;
@@ -140,7 +140,7 @@ var Converter = (function() {
                 var result = numerator_res / denominator_res;
 
                 if(decimals || decimals === 0) {
-                    var dec = Math.pow(10,decimals);
+                    var dec = Math.pow(10, decimals);
                     if(round) {
                         //round to the specified number of decimals
                         result = Math.round(result * dec) / dec;
@@ -152,7 +152,7 @@ var Converter = (function() {
 
                 return result;
             } else {
-                return pr.toSimple(unit,decimals,round);
+                return pr.toSimple(unit, decimals, round);
             }
         }
     }
@@ -162,10 +162,10 @@ var Converter = (function() {
      *
      * @param    {string[]} unit -  the unit symbol (or array of symblos) for the conversion unit
      * @param    {int} decimals (optional, default-null) - the decimal precision of the conversion result
-     * @param    {boolean} round (optional, default-true) - round or floor the conversion result
+     * @param    {boolean} round (optional, default-false) - round or floor the conversion result
      * @returns   {double}
      */
-    pr.toSimple = function(unit,decimals,round) {
+    pr.toSimple = function(unit, decimals, round) {
         if(round === undefined) {
             round = false;
         }
@@ -180,7 +180,7 @@ var Converter = (function() {
         }
         
         if(typeof unit !== 'string') {
-            return pr.toMany(unit,decimals,round);
+            return pr.toMany(unit, decimals, round);
         } else {
             //regular unit, check that we have it
             if(pr.units[unit]) {
@@ -203,7 +203,7 @@ var Converter = (function() {
                 }
 
                 if(decimals || decimals === 0) {
-                    var dec = Math.pow(10,decimals);
+                    var dec = Math.pow(10, decimals);
                     if(round) {
                         //round to the specified number of decimals
                         result = Math.round(result * dec) / dec;
@@ -228,7 +228,7 @@ var Converter = (function() {
      * @param    {boolean} round (optional, default-true) - round or floor the conversion result
      * @return   {object} - results of the coversions
      */
-    pr.toMany = function(unitList,decimals,round) {
+    pr.toMany = function(unitList, decimals, round) {
         if(!unitList || typeof unitList === undefined) {
             unitList = [];
         }
@@ -238,7 +238,7 @@ var Converter = (function() {
         for(var i = 0; i < unitList.length; i++) {
             var unit = unitList[i];
 
-            resultList[unit] = c.to(unit,decimals,round);
+            resultList[unit] = c.to(unit, decimals, round);
         }
 
         return resultList;
@@ -248,10 +248,10 @@ var Converter = (function() {
      * Convert from value to all compatable units
      *
      * @param    {int} decimals (optional, default-null) - the decimal precision of the conversion result
-     * @param    {boolean} round (optional, default-true) - round or floor the conversion result
+     * @param    {boolean} round (optional, default-false) - round or floor the conversion result
      * @return   {object} - results of conversion to all units with matching base units
      */
-    c.toAll = function(decimal,round) {
+    c.toAll = function(decimal, round) {
         //ensure the from value has been set correctly
         if(!pr.value && pr.value !== 0) {
             return printError('From Value Not Set');
@@ -269,7 +269,7 @@ var Converter = (function() {
                 }
             }
 
-            return pr.toMany(unitList,decimals,round);
+            return pr.toMany(unitList, decimals, round);
         } else {
             return printError('No From Unit Set');
         }
@@ -413,6 +413,20 @@ var Converter = (function() {
             }
         }
         return _units;
+    }
+
+    /**
+     * Get Base unit for unit
+     *
+     * @param    {string} type - the symbol to search for available conversion units
+     * @return   {array} - list of all available conversion units for type
+     */
+    c.getUnitBase = function(unit) {
+        if(!pr.units[unit]) {
+            return printError("Unrecognized Unit");
+        }
+
+        return pr.units[unit].base;
     }
 
     /**
