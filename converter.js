@@ -35,7 +35,7 @@ var Converter = (function() {
                 var denominator = relation[1];
 
                 var numerator_multiplier = 1;
-                var matches = numerator.match(/(\d+)?(\D+)/);
+                var matches = numerator.match(/(\d+)?(\D+.*)/);
                 if(matches && matches.length && matches[1] !== "0") {
                     numerator_multiplier = (matches[1] === undefined ? 1 : +matches[1]);
                     numerator = matches[2];
@@ -44,7 +44,7 @@ var Converter = (function() {
                 }
 
                 var denominator_multiplier = 1;
-                matches = denominator.match(/(\d+)?(\D+)/);
+                matches = denominator.match(/(\d+)?(\D+.*)/);
                 if(matches && matches.length && matches[1] !== "0") {
                     denominator_multiplier = (matches[1] === undefined ? 1 : +matches[1]);
                     denominator = matches[2];
@@ -60,7 +60,7 @@ var Converter = (function() {
                     var _unit = pr.units[unit];
                     if(type){
                         pr['baseUnit' + type] = _unit.base;
-                        pr[type + 'Value'] = pr.convertToBase(value,_unit);
+                        pr[type.toLowerCase() + 'Value'] = pr.convertToBase(value,_unit);
                     } else {
                         pr.baseUnit = _unit.base;
                         pr.value = pr.convertToBase(value,_unit);
@@ -104,7 +104,7 @@ var Converter = (function() {
                 var denominator = relation[1];
 
                 var numerator_multiplier = 1;
-                var matches = numerator.match(/(\d+)?(\D+)/);
+                var matches = numerator.match(/(\d+)?(\D+.*)/);
                 if(matches && matches.length && matches[1] !== "0") {
                     numerator_multiplier = (matches[1] === undefined ? 1 : +matches[1]);
                     numerator = matches[2];
@@ -116,14 +116,14 @@ var Converter = (function() {
                 var numerator_res = pr.toSimple(numerator,decimals,round) * numerator_multiplier;
 
                 var denominator_multiplier = 1;
-                matches = denominator.match(/(\d+)?(\D+)/);
+                matches = denominator.match(/(\d+)?(\D+.*)/);
                 if(matches && matches.length && matches[1] !== "0") {
                     denominator_multiplier = (matches[1] === undefined ? 1 : +matches[1]);
                     denominator = matches[2];
                 } else {
                     printError('Unit Does Not Exist: ' + denominator);
                 }
-                pr.value = pr.numeratorValue;
+                pr.value = pr.denominatorValue;
                 pr.baseUnit = pr.baseUnitDenominator;
                 var denominator_res = pr.toSimple(denominator,decimals,round) / denominator_multiplier;
 
