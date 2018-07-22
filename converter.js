@@ -26,9 +26,16 @@ var Converter = (function() {
      * @param    {string} unit (optional) - the unit symbol for the start value
      * @return   none
      */
-    c.from = function(value, unit, type) {
-        if(!value && value !== 0) {
+    c.from = function(val, unit, type) {
+        if(!val && val !== 0) {
             return printError('no value given');
+        }
+
+        if(typeof val === 'string') {
+            printWarning('given value ' + val + ' is string, attempting to convert to number');
+            value = parseFloat(val);
+        } else {
+            value = val;
         }
 
         if(!unit) {
@@ -567,6 +574,11 @@ var Converter = (function() {
 
     var printError = function(error) {
         console.error('[Converter] ' + error);
+        return false;
+    }
+
+    var printWarning = function(warning) {
+        console.warn('[Converter] ' + warning);
         return false;
     }
 
