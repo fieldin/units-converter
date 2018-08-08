@@ -13,6 +13,16 @@ var Converter = (function() {
         units:{}
     };
 
+    c.resetDefaultConfig = function() {
+        c.config = {
+            warn:false
+        };
+    };
+
+    if(!c.config) {
+        c.resetDefaultConfig();
+    }
+
     c.convert = function(value, from_unit, to_unit, decimals, round) {
         var converter = this;
         converter.from(value,from_unit);
@@ -578,7 +588,9 @@ var Converter = (function() {
     }
 
     var printWarning = function(warning) {
-        console.warn('[Converter] ' + warning);
+        if(c.config && c.config.warn){
+            console.warn('[Converter] ' + warning);
+        }
         return false;
     }
 
