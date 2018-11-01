@@ -596,3 +596,5 @@ var Converter = (function() {
 
     return c;
 })();
+
+export default Converter;
