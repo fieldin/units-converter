@@ -597,4 +597,4 @@ var Converter = (function() {
     return c;
 })();
 
-module.exports = Converte
+module.exports = Converter
