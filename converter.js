@@ -597,4 +597,9 @@ var Converter = (function() {
     return c;
 })();
 
-module.exports = Converter
+// We'll come back and fix you, naive export
+if (window) {
+    window.Converter = Converter;
+} else {
+    module.exports = Converter;
+}
