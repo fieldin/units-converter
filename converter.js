@@ -598,7 +598,8 @@ var Converter = (function() {
 })();
 
 // We'll come back and fix you, naive export
-if (window) {
+// for future me: remember it should work as global on web and as module on react native
+if (this.document) {
     window.Converter = Converter;
 } else {
     module.exports = Converter;
