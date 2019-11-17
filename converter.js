@@ -41,6 +41,7 @@ var Converter = (function() {
             return printError('no value given');
         }
 
+        let value;
         if(typeof val === 'string') {
             printWarning('given value ' + val + ' is string, attempting to convert to number');
             value = parseFloat(val);
